@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:simpleType name="Hex">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:pattern value="[0-9A-F]+"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="Bytes">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:pattern value="((([0-9A-F]{2})|(\?))[ ]{0,1})+"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="fieldVar">
+        <xs:attribute name="address" type="xs:string" use="required" />
+        <xs:attribute name="comment" type="xs:string" use="required" />
+    </xs:complexType>
+    <xs:complexType name="searchVar">
+        <xs:sequence>
+            <xs:element name="comment" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="bytes" type="Bytes"/>
+        <xs:attribute name="last" type="Hex"/>
+        <xs:attribute name="offset" type="Hex"/>
+    </xs:complexType>
+    <xs:complexType name="blockVar">
+        <xs:choice maxOccurs="unbounded">
+            <xs:element name="block" type="blockVar"/>
+            <xs:element name="field" type="fieldVar"/>
+            <xs:element name="search" type="searchVar"/>
+        </xs:choice>
+        <xs:attribute name="name" type="xs:string" use="required" />
+    </xs:complexType>
+    <xs:element name="scanner">
+        <xs:complexType>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element name="block" type="blockVar"/>
+                <xs:element name="search" type="searchVar"/>
+            </xs:choice>
+            <xs:attribute name="base" type="Hex" use="required" />
+            <xs:attribute name="exe" type="xs:string" use="required" />
+            <xs:attribute name="out" type="xs:string" use="required" />
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

@@ -1,0 +1,6 @@
+[System]: {
+	??? - This is a comment
+	00402036 - This is a test string
+	00402049 - This is a test string 2
+	0040205C - This is a test string 3
+}
