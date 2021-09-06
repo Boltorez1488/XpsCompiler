@@ -7,6 +7,8 @@ Support:
 - Patterns
 - Comment fields
 
+*Does not always work correctly, requires some work*
+
 ## Help
 ```
 Use: <xps_path> <lines>
